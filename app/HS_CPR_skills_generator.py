@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
 
-def generate_skills_sheet(student_name="",test_date="",instructor_name="", adult=True, child=True, infant=True):
+def generate_pdf(student_name="",test_date="",instructor_name="", adult=True, child=True, infant=True):
   output_filename = student_name + "_skillsheet.pdf"
 
   #create page1 mask
@@ -74,6 +74,14 @@ def generate_skills_sheet(student_name="",test_date="",instructor_name="", adult
     can.drawString(500, 304, u"✓")
     can.drawString(500, 246, u"✓")
 
+  #circle adult, child, and/or infant
+  if adult:
+    can.ellipse(310,135, 345,150)
+  if child:
+    can.ellipse(394,135, 430,150)
+  if infant:
+    can.ellipse(478,135, 510,150)
+
   can.save()
 
   #move to the beginning of the StringIO buffer
@@ -104,7 +112,7 @@ def generate_skills_sheet(student_name="",test_date="",instructor_name="", adult
 
 
 def main():
-    generate_skills_sheet("John Student", "5/15/15", "Jane Instructor", adult=True, child=True, infant=True)
+    generate_pdf("John Student", "5/15/15", "Jane Instructor", adult=True, child=True, infant=True)
 
 if __name__ == "__main__":
     main()
