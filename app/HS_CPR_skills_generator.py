@@ -109,8 +109,9 @@ def generate_pdf(student_name="",test_date="",instructor_name="", adult=True, ch
 def main():
   pdf = generate_pdf("John Student", "5/15/15", "Jane Instructor", adult=True, child=True, infant=True)
   #write combined pdf to file
-
-  outputStream = file("test_HS_skillsheet.pdf", "wb")
+  dir = os.path.realpath('.')
+  filename = os.path.join(dir, 'test','test_HS_skillsheet.pdf')
+  outputStream = file(filename, "wb")
   pdf.write(outputStream)
   outputStream.close()
 

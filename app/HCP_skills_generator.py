@@ -103,9 +103,10 @@ def generate_pdf(student_name="",test_date="",instructor_name=""):
 def main():
     pdf = generate_pdf("John Student", "5/15/15", "Jane Instructor")
     #write pdf to file
-    output_filename = "test_skillsheet.pdf"
 
-    outputStream = file(output_filename, "wb")
+    dir = os.path.realpath('.')
+    filename = os.path.join(dir, 'test','test_HCP_skillsheet.pdf')
+    outputStream = file(filename, "wb")
     pdf.write(outputStream)
     outputStream.close()
 
