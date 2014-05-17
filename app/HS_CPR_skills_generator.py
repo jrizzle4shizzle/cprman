@@ -7,7 +7,6 @@ from reportlab.lib.pagesizes import letter
 
 
 def generate_pdf(student_name="",test_date="",instructor_name="", adult=True, child=True, infant=True):
-  output_filename = student_name + "_skillsheet.pdf"
 
   #create page1 mask
   packet = StringIO.StringIO()
@@ -103,16 +102,17 @@ def generate_pdf(student_name="",test_date="",instructor_name="", adult=True, ch
   page2.mergePage(mask.getPage(1))
   output.addPage(page2)
 
+  return output
 
-  #write combined pdf to file
-
-  outputStream = file(output_filename, "wb")
-  output.write(outputStream)
-  outputStream.close()
 
 
 def main():
-    generate_pdf("John Student", "5/15/15", "Jane Instructor", adult=True, child=True, infant=True)
+  pdf = generate_pdf("John Student", "5/15/15", "Jane Instructor", adult=True, child=True, infant=True)
+  #write combined pdf to file
+
+  outputStream = file("test_HS_skillsheet.pdf", "wb")
+  pdf.write(outputStream)
+  outputStream.close()
 
 if __name__ == "__main__":
     main()
