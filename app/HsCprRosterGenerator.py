@@ -24,16 +24,30 @@ def generate_pdf(course_info, students):
         student_name,student_address_1,student_address_2
     '''
 
+    return PdfFileWriter()
+
 
 def main():
 
-    course_info = {}
+    dir = os.path.realpath('.')
+    filename = os.path.join(dir, 'test','students.csv')
     students = []
+    with open(filename, 'rb') as csvfile:
+        students_csv = csv.DictReader(csvfile)
+        for row in students_csv:
+            if(row["student_name"] != ''):
+                students.append(row)
+
+    course_info = {}
+    course_info_filename = os.path.join(dir, 'test', 'HS_CPR_course_info.csv')
+    with open (course_info_filename, 'rb') as course_info_csv:
+        course_info_csv = csv.DictReader(course_info_csv)
+        for row in course_info_csv:
+            course_info = row
 
     pdf = generate_pdf(course_info, students)
 
     #write pdf to file
-    dir = os.path.realpath('.')
     filename = os.path.join(dir, 'test','test_HS_cards.pdf')
     outputStream = file(filename, "wb")
     merged_cards.write(outputStream)
