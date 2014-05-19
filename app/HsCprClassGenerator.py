@@ -18,13 +18,13 @@ def generate_class_paperwork(course_info, students):
     '''
     Arguments:
     course_info: Dictionary with the following keys
-        instructor_name,instructor_id,training_center_name,
+        instructor_name,instructor_id,training_center_name,training_center_id,
         training_center_address,course_location,course_date,card_issue_date,
         card_expire_date,written_test,child_cpr,infant_cpr
     students: List of dictionarys with the following keys
         student_name,student_address_1,student_address_2
 
-    returns a list of PDFs
+    returns a list of PdfFileWriters
     '''
 
     skillsheets = []
@@ -52,7 +52,7 @@ def generate_class_paperwork(course_info, students):
     for student1, student2 in grouper(students, 2):
         if(student2 != None):
             next_card_mask = HsCprCardGenerator.generate_pdf(
-                tc_name=course_info["training_center_name"],
+                tc_name=course_info["training_center_name"]+" "+course_info["training_center_id"],
                 tc_address=course_info["training_center_address"],
                 course_location=course_info["course_location"],
                 instructor_name_id=course_info["instructor_name"]+" "+course_info["instructor_id"],
