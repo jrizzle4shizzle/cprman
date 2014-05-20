@@ -1,2 +1,2 @@
-instructor_name,instructor_id,training_center_name,training_center_address,course_location,course_date,card_issue_date,card_expire_date,written_test,child_cpr,infant_cpr
-Jane Instructor,12345678901,AHA Number 1 TC MD123456,123 Best Street Ever,Supertown USA,5/15/2014,05/2014,05/2016,no,yes,yes
+instructor_name,instructor_id,instructor_renewal_date,training_center_name,training_center_id,training_center_address,course_location,course_date,card_issue_date,card_expire_date,written_test,child_cpr,infant_cpr,student_manikin_ratio
+Jane Instructor,12345678901,5/2016,AHA Number 1 TC,MD123456,123 Best Street Ever,Supertown USA,5/15/2014,05/2014,05/2016,yes,yes,yes,2:1
