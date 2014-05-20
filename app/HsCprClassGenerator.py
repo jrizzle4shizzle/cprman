@@ -1,4 +1,5 @@
 # coding: utf-8
+import sys, getopt
 import os
 import csv
 import HsCprCardGenerator
@@ -128,20 +129,45 @@ def generate_class_paperwork(course_info, students):
 
 
 
-def main():
+def main(argv):
+    info_file = ''
+    students_file = ''
+    try:
+        opts, args = getopt.getopt(argv,"hi:s:",["ifile=","sfile="])
+    except getopt.GetoptError:
+        print 'HsCprClassGenerator.py -i <course_info.csv> -s <students.csv>'
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print 'HsCprClassGenerator.py -i <course_info.csv> -s <students.csv>'
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            info_file = arg
+        elif opt in ("-s", "--sfile"):
+            students_file = arg
+
+    test = False
+
     dir = os.path.realpath('.')
-    filename = os.path.join(dir, 'test','students.csv')
+    if(students_file == ''):
+        print "No student file name provided ... entering test mode"
+        test = True
+        students_file = os.path.join(dir, 'test','students.csv')
+
     students = []
-    with open(filename, 'rb') as csvfile:
+    with open(students_file, 'rb') as csvfile:
         students_csv = csv.DictReader(csvfile)
         for row in students_csv:
             if(row["student_name"] != ''):
                 students.append(row)
 
+    if(info_file == ''):
+        print "No course info file provided ... entering test mode"
+        test = True
+        info_file = os.path.join(dir, 'test', 'HS_CPR_course_info.csv')
 
     course_info = {}
-    course_info_filename = os.path.join(dir, 'test', 'HS_CPR_course_info.csv')
-    with open (course_info_filename, 'rb') as course_info_csv:
+    with open (info_file, 'rb') as course_info_csv:
         course_info_csv = csv.DictReader(course_info_csv)
         for row in course_info_csv:
             course_info = row
@@ -149,26 +175,31 @@ def main():
 
     pdf_dict = generate_class_paperwork(course_info, students)
 
-    ss_filename = os.path.join(dir, 'test','test_HS_skillsheets.pdf')
+    cd = course_info['course_date'].replace('/','_')
+
+    if test:
+        cd = "TEST"
+
+    ss_filename = os.path.join(dir, 'output',cd+'_HS_skillsheets.pdf')
     ss_outputStream = file(ss_filename, "wb")
     pdf_dict['skillsheets'].write(ss_outputStream)
     ss_outputStream.close()
 
-    pc_filename = os.path.join(dir, 'test','test_HS_cards_print.pdf')
+    pc_filename = os.path.join(dir, 'output',cd+'_HS_cards_print.pdf')
     pc_outputStream = file(pc_filename, "wb")
     pdf_dict['print_cards'].write(pc_outputStream)
     pc_outputStream.close()
 
-    ac_filename = os.path.join(dir, 'test','test_HS_cards_archive.pdf')
+    ac_filename = os.path.join(dir, 'output',cd+'_HS_cards_archive.pdf')
     ac_outputStream = file(ac_filename, "wb")
     pdf_dict['archive_cards'].write(ac_outputStream)
     ac_outputStream.close()
 
-    r_filename = os.path.join(dir, 'test','test_HS_roster.pdf')
+    r_filename = os.path.join(dir, 'output',cd+'_HS_roster.pdf')
     r_outputStream = file(r_filename, "wb")
     pdf_dict['roster'].write(r_outputStream)
     r_outputStream.close()
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
