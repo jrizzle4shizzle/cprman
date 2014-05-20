@@ -3,6 +3,7 @@ import os
 import csv
 import HsCprCardGenerator
 import HsCprSkillsGenerator
+import HsCprRosterGenerator
 import itertools
 import StringIO
 from PyPDF2 import PdfFileMerger, PdfFileReader
@@ -90,10 +91,17 @@ def generate_class_paperwork(course_info, students):
         print_cards.append(pc_packet)
         archive_cards.append(ac_packet)
 
+    print "generating roster"
+
+    roster = HsCprRosterGenerator.generate_pdf(course_info, students)
+
     print "combining output..."
 
     #merge the pdfs
     combined_pdfs = {}
+
+    combined_pdfs['roster'] = roster
+
     merged_skillsheets = PdfFileMerger()
     for next_skillsheet in skillsheets:
         next_skillsheet.seek(0)
@@ -156,6 +164,10 @@ def main():
     pdf_dict['archive_cards'].write(ac_outputStream)
     ac_outputStream.close()
 
+    r_filename = os.path.join(dir, 'test','test_HS_roster.pdf')
+    r_outputStream = file(r_filename, "wb")
+    pdf_dict['roster'].write(r_outputStream)
+    r_outputStream.close()
 
 
 if __name__ == "__main__":
