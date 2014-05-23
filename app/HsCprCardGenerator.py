@@ -19,22 +19,22 @@ def generate_pdf(
     can.setFont("Helvetica", 10)
     #card 1
     if student1_name is not None:
-        can.drawString(363, 742, tc_name)
-        can.drawString(363, 717, tc_address)
-        can.drawString(363, 693, course_location)
-        can.drawString(363, 670, instructor_name_id)
+        can.drawString(363, 741, tc_name)
+        can.drawString(363, 716, tc_address)
+        can.drawString(363, 692, course_location)
+        can.drawString(363, 668, instructor_name_id)
         can.drawString(81, 690, student1_name)
-        can.drawString(81, 644, issue_date)
-        can.drawString(207, 644, expire_date)
+        can.drawString(81, 642, issue_date)
+        can.drawString(207, 642, expire_date)
         can.drawString(81,596, student1_name)
         can.drawString(81,576, student1_address_1)
         can.drawString(81,556, student1_address_2)
         if not child:
-            can.drawString(128, 656, u"✗")
+            can.drawString(128, 655, u"✗")
         if not infant:
-            can.drawString(185, 656, u"✗")
+            can.drawString(185, 655, u"✗")
         if not test:
-            can.drawString(240, 656, u"✗")
+            can.drawString(240, 655, u"✗")
 
 
     #card 2
@@ -44,17 +44,17 @@ def generate_pdf(
         can.drawString(363, 283, course_location)
         can.drawString(363, 259, instructor_name_id)
         can.drawString(81, 283, student2_name)
-        can.drawString(81, 235, issue_date)
-        can.drawString(207, 235, expire_date)
-        can.drawString(81,189, student2_name)
+        can.drawString(81, 231, issue_date)
+        can.drawString(207, 231, expire_date)
+        can.drawString(81,185, student2_name)
         can.drawString(81,169, student2_address_1)
         can.drawString(81,148, student2_address_2)
         if not child:
-            can.drawString(128, 247, u"✗")
+            can.drawString(128, 246, u"✗")
         if not infant:
-            can.drawString(185, 247, u"✗")
+            can.drawString(185, 246, u"✗")
         if not test:
-            can.drawString(240, 247, u"✗")
+            can.drawString(240, 246, u"✗")
 
     can.save()
 

@@ -56,3 +56,7 @@ docs/_build/
 app/test
 
 *.csv
+
+app/input/students.numbers
+
+app/input/HS_CPR_course_info_Crystal.numbers
