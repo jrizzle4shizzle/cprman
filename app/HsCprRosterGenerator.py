@@ -71,7 +71,7 @@ def generate_student_page_pdf(students, instructor_name, course_date):
     can.setFont("Helvetica", 10)
 
     can.drawString(86, 571, course_date)
-    can.drawString(238, 571, "Heartsaver CPR")
+    can.drawString(238, 571, "Heartsaver CPR AED")
     can.drawString(503, 571, instructor_name)
 
 
